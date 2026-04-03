@@ -7,7 +7,7 @@ return function<V>(
 	constructor: () -> V,
 	destructor: (V) -> (),
 	excludeGetFEnv: boolean?
-): InitializationInterface | (V & { getfenv: (...any) -> { [string]: any } })
+): InitializationInterface | (V & { _getfenv: (...any) -> { [string]: any } })
 	local currentService: any?
 	local interface = {
 		IsInitialized = false,
@@ -51,7 +51,7 @@ return function<V>(
 			end
 		end
 
-		function meta.getfenv(...)
+		function meta._getfenv(...)
 			if excludeGetFEnv then
 				return {}
 			else
