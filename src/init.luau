@@ -3,11 +3,7 @@ export type InitializationInterface = {
 	IsInitialized: false,
 	init: () -> () -> (),
 }
-return function<V>(
-	constructor: () -> V,
-	destructor: (V) -> (),
-	excludeGetFEnv: boolean?
-): InitializationInterface | (V & { _getfenv: (...any) -> { [string]: any } })
+return function<V>(constructor: () -> V, destructor: (V) -> (), excludeGetFEnv: boolean?): InitializationInterface | V
 	local currentService: any?
 	local interface = {
 		IsInitialized = false,
