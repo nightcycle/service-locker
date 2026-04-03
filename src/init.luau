@@ -15,11 +15,15 @@ return function<V>(
 			if currentService ~= nil then
 				return function() end
 			end
-			currentService = constructor()
+			local service = constructor()
+			currentService = service
 			assert(currentService ~= nil, `construction failed`)
 
 			return function()
-				destructor(currentService)
+				if currentService == service then
+					currentService = nil
+				end
+				destructor(service)
 			end
 		end,
 	}
